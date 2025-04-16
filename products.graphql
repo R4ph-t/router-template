@@ -19,6 +19,24 @@ type Product {
   id: ID!
   name: String
   description: String
+  reviews: [Review]
+  @connect(
+    source: "ecomm"
+    http: { GET: "/products/{$this.id}/reviews" }
+    selection: """
+    $.reviews {
+      id
+      rating
+      comment
+    }
+    """
+  )
+}
+
+type Review {
+  id: ID!
+  rating: Float
+  comment: String
 }
 
 type Query {
@@ -35,4 +53,15 @@ type Query {
       }
       """
     )
+
+  product(id: ID!): Product
+      @connect(
+        source: "ecomm"
+        http: { GET: "/products/{$args.id}" }
+        selection: """
+        id
+        name
+        description
+        """
+      )
 }
