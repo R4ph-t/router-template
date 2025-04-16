@@ -1,8 +1,6 @@
-federation_version: =2.6.0
+federation_version: =2.10.0
 subgraphs:
   products:
+    routing_url: http://ignored
     schema:
-      subgraph_url: http://localhost:4001
-  users:
-    schema:
-      subgraph_url: http://localhost:4002
+      file: products.graphql
